@@ -1,23 +1,31 @@
 import songs from './index.json' assert {type: 'json'};
+var keys = Object.keys(localStorage),
+            i = keys.length;
+    
+            while ( i-- ) {
+            songs.push( localStorage.getItem(keys[i]) );
+            }
 
 document.querySelector(".count").style.display="block"
 document.querySelector(".count").innerHTML= Object.keys(songs).length;
-var key = 1;
         const addSong = (ev)=>{
             ev.preventDefault(); 
+            var songname = document.getElementById('song').value
+            var albumname = document.getElementById('album').value
+            var artistname = document.getElementById('artist').value
+            var year = document.getElementById('year').value
             let song = {
                 id: Date.now(),
-                song: document.getElementById('song').value,
-                album: document.getElementById('album').value,
-                artist: document.getElementById('artist').value,
-                year: document.getElementById('year').value
+                song: songname[0].toUpperCase()+songname.slice(1),
+                album: albumname[0].toUpperCase()+albumname.slice(1),
+                artist: artistname[0].toUpperCase()+artistname.slice(1),
+                year: year
 
             }
-            songs.push(song);
-            console.log(songs);
+            
+            songs.push(song)
             document.querySelector('form').reset();
-            localStorage.setItem('song_'+key, JSON.stringify(songs) );
-            key++;
+            localStorage.setItem('songlist', JSON.stringify(songs) );
             document.querySelector(".count").innerHTML= Object.keys(songs).length;
         }
 
@@ -25,10 +33,13 @@ var key = 1;
             document.getElementById('btn').addEventListener('click', addSong);
         });
 
+        
+
+
     ///////////////sort by song name////////////////////////
 
         function sortByKey(array, key) {
-            
+            key = key.toLowerCase();
             document.querySelector('.show').style.display = "block"
              JSON.stringify(array.sort(function(a, b) {
                 var x = a[key]; var y = b[key];
@@ -38,6 +49,7 @@ var key = 1;
            
 
             }
+        
 
             document.getElementById('sortname').addEventListener('click', function(){  sortByKey(songs,'song')});
 
@@ -61,8 +73,9 @@ var key = 1;
         var sname = document.getElementById("searchsong").value
         let result = Object.values(songs).filter(function(e){return e.song.match(sname)})
         document.querySelector('.show').style.display="block"
-        document.querySelector('.show').innerHTML=JSON.stringify(result)
-   
+        var res = result.map((obj) => "\n" +"<b>song:</b>"+ Object.values(obj)[1] +"("+ Object.values(obj)[2]+")"+"\n<b>artist:</b>"+Object.values(obj)[3] +"\n<b>year:</b>"+Object.values(obj)[4]);
+        document.querySelector('.show').innerHTML=res
+        console.log(res);
 }
 
     
@@ -76,8 +89,9 @@ var key = 1;
             var artname = document.getElementById("searchartist").value
             let result = Object.values(songs).filter(function(e){return e.artist == artname})
             document.querySelector('.show').style.display="block"
-            document.querySelector('.show').innerHTML=JSON.stringify(result)
-            console.log(result);
+            var res = result.map((obj) => "\n" +"<b>song:</b>"+ Object.values(obj)[1] +"("+ Object.values(obj)[2]+")"+"\n<b>artist:</b>"+Object.values(obj)[3] +"\n<b>year:</b>"+Object.values(obj)[4]);
+            document.querySelector('.show').innerHTML=res
+            console.log(res);
        // })
     }
     document.getElementById('sartist').addEventListener('click', searchArtist);
@@ -89,8 +103,9 @@ var key = 1;
           var year = document.getElementById("searchyear").value
           let result = Object.values(songs).filter(function(e){return e.year == year})
           document.querySelector('.show').style.display="block"
-          document.querySelector('.show').innerHTML=JSON.stringify(result)
-          console.log(result);
+          var res = result.map((obj) => "\n" +"<b>song:</b>"+ Object.values(obj)[1] +"("+ Object.values(obj)[2]+")"+"\n<b>artist:</b>"+Object.values(obj)[3] +"\n<b>year:</b>"+Object.values(obj)[4]);
+          document.querySelector('.show').innerHTML=res
+          console.log(res);
      // })
   }
-  document.getElementById('syear').addEventListener('click', searchYear);
+  document.getElementById('syear').addEventListener('click', searchYear)
