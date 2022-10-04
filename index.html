@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music-website</title>
+    <link href="index.css" rel="stylesheet">
+    <script type="module" src="index.js"></script>
+
+    
+    
+</head>
+<body>
+    <div class="container right-panel-active bg">
+        <!-- Sign Up -->
+        <div class="container__form container--signup">
+            <form action="" method="get" class="form" id="form1">
+                <h2 class="form__title">Add your favorites</h2>
+                <input type="text" id="song" placeholder="Song name" class="input" />
+                <input type="text" id="album" placeholder="Album cover" class="input" />
+                <input type="text" id="artist" placeholder="Song Artist" class="input"  />
+                <input type="text" id="year" placeholder="Year released" class="input" />
+
+                <button type="submit" class="btn" id="btn">Add</button>
+                <div class="cnt" style="display: flex; flex-direction: row;"> 
+                    <div class="num">Number of records:</div>
+                <div class="count"></div>
+                </div>
+
+            </form>
+        </div>
+    
+    
+    
+        <!-- Overlay -->
+        <div class="container__overlay">
+            <div class="overlay">
+                <div class="sortbuttons">
+                <div class="bt">
+                    <button class="btn" style="width: 80px; text-align: left; cursor:crosshair" id="sortby" >Sort by >></button><br>
+                </div>
+
+                <div class="bt">
+                    <button class="btn" style="width: 70px;" id="sortname">name</button><br>
+                </div>
+                <div class="bt">
+                    <button class="btn" style="width: 70px;" id="sortartist">artist</button><br>
+                </div>
+                <div class="bt">
+                    <button class="btn" style="width: 70px;" id="sortyear">year</button><br>
+                </div>
+                </div>
+
+                <div class="searchtab">
+                <div class="search">
+                <input type="text" style="width: 200px;margin-left: 5px;" id="searchsong" placeholder="Song name" class="input" />   
+                <div class="bt">
+                    <button class="btn" style="width: 80px;" id="ssong">Search</button><br>
+                </div>   
+                </div>   
+                <div class="search">
+                    <input type="text" style="width: 200px;margin-left: 5px;" id="searchartist" placeholder="Artist name" class="input" />   
+                    <div class="bt">
+                        <button class="btn" style="width: 80px;" id="sartist">Search</button><br>
+                    </div>   
+                    </div>  
+                    <div class="search">
+                        <input type="text" style="width: 200px;margin-left: 5px;" id="searchyear" placeholder="Year released" class="input" />   
+                        <div class="bt">
+                            <button class="btn" style="width: 80px;" id="syear">Search</button><br>
+                        </div>   
+                        </div> 
+                        </div>        
+                
+              
+                <div class="over overlay--right">
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="show"></div>
+
+
+</body>
+</html>
