@@ -18,9 +18,11 @@
             <form action="" method="get" class="form" id="form1">
                 <h2 class="form__title">Add your favorites</h2>
                 <input type="text" id="song" placeholder="Song name" class="input" required/>
-                <input type="text" id="album" placeholder="Album cover" class="input" />
                 <input type="text" id="artist" placeholder="Song Artist" class="input"  />
                 <input type="text" id="year" placeholder="Year released" class="input" />
+                <input id="upload" class="upload input" type='file' accept = "image/*" />
+                
+
 
                 <button type="submit" class="btn" id="btn">Add</button>
                 <div class="cnt" style="display: flex; flex-direction: row;"> 
@@ -30,6 +32,7 @@
 
             </form>
         </div>
+       
     
     
     
@@ -80,8 +83,11 @@
             </div>
         </div>
     </div>
-    <div class="show"></div>
+    <table id="songtable" class="songtable"></table>
 
+
+
+ 
 
 </body>
 </html>

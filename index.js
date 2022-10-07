@@ -1,53 +1,98 @@
-import songs from './index.json' assert {type: 'json'};
-var keys = Object.keys(localStorage),
-            i = keys.length;
-    
-            while ( i-- ) {
-            songs.push( localStorage.getItem(keys[i]) );
-            }
+
+//import songs from './index.json' assert {type: 'json'};
+let songs = JSON.parse(localStorage.getItem('songlist'))
+if(songs == null){
+    songs = [];
+}
+
 
 document.querySelector(".count").style.display="block"
-document.querySelector(".count").innerHTML= Object.keys(songs).length;
+document.querySelector(".count").innerHTML= songs.length;
         const addSong = (ev)=>{
             ev.preventDefault(); 
             var songname = document.getElementById('song').value
-            var albumname = document.getElementById('album').value
             var artistname = document.getElementById('artist').value
             var year = document.getElementById('year').value
+
+           // var album = document.getElementById('upload').files[0]
+
             let song = {
                 id: Date.now(),
                 song: songname[0].toUpperCase()+songname.slice(1),
-                album: albumname[0].toUpperCase()+albumname.slice(1),
                 artist: artistname[0].toUpperCase()+artistname.slice(1),
-                year: year
+                year: year,
+                album: imageurl
 
             }
             
             songs.push(song)
             document.querySelector('form').reset();
             localStorage.setItem('songlist', JSON.stringify(songs) );
-            document.querySelector(".count").innerHTML= Object.keys(songs).length;
+            document.querySelector(".count").innerHTML= songs.length;
+            displayValues();
+            
         }
 
         document.addEventListener('DOMContentLoaded', ()=>{
             document.getElementById('btn').addEventListener('click', addSong);
         });
 
+
+        
+           var imageurl="";
+           document.querySelector('#upload').addEventListener('change',function(){ 
+            var reader = new FileReader();
+            reader.addEventListener('load',function(){
+                imageurl=reader.result
+               
+            })
+            reader.readAsDataURL(this.files[0]);
+           })
+              
+            
+          
+          
+
+        function displayValues(){
+            var tablelements = document.querySelector(".songtable")
+            tablelements.style.display = "block"
+            tablelements.innerHTML="<tr><th>Song Name</th><th>Album Cover</th><th>Artist</th><th>Year Released</th></tr>"
+            for(var i=0;i<songs.length;i++){
+                tablelements.innerHTML+=
+                `<tr><td>${songs[i].song}</td>
+                <td><img src = "${songs[i].album}"</td>
+                <td>${songs[i].artist}</td>
+                <td>${songs[i].year}</td></tr>`
+            }
+        }
+   
+            function displayValuesParam(songs){
+            var tablelements = document.querySelector(".songtable")
+            tablelements.style.display = "block"
+            tablelements.innerHTML="<tr><th>Song Name</th><th>Album Cover</th><th>Artist</th><th>Year Released</th></tr>"
+            for(var i=0;i<songs.length;i++){
+                tablelements.innerHTML+=
+                `<tr><td>${songs[i].song}</td>
+                <td><img src = "${songs[i].album}+tr=w-400,h-300"</td>
+                <td>${songs[i].artist}</td>
+                <td>${songs[i].year}</td></tr>`
+            }
+        }
+
+        
+     
         
 
 
     ///////////////sort by song name////////////////////////
 
-        function sortByKey(array, key) {
-            key = key.toLowerCase();
-            document.querySelector('.show').style.display = "block"
-             JSON.stringify(array.sort(function(a, b) {
+        function sortByKey(array, key) {   
+            document.querySelector(".songtable").style.display= "block"       
+            JSON.stringify(array.sort(function(a, b) {
                 var x = a[key]; var y = b[key];
                 return ((x < y) ? -1 : ((x > y) ? 1 : 0));
             }));
-            document.querySelector('.show').innerHTML =  songs.map((obj) => "\n" +"<b>song:</b>"+ Object.values(obj)[1] +"("+ Object.values(obj)[2]+")"+"\n<b>artist:</b>"+Object.values(obj)[3] +"\n<b>year:</b>"+Object.values(obj)[4]);
-           
-
+             displayValues()
             }
         
 
@@ -71,12 +116,19 @@ document.querySelector(".count").innerHTML= Object.keys(songs).length;
     function searchSong(){ 
 
         var sname = document.getElementById("searchsong").value
-        let result = Object.values(songs).filter(function(e){return e.song.match(sname)})
-        document.querySelector('.show').style.display="block"
-        var res = result.map((obj) => "\n" +"<b>song:</b>"+ Object.values(obj)[1] +"("+ Object.values(obj)[2]+")"+"\n<b>artist:</b>"+Object.values(obj)[3] +"\n<b>year:</b>"+Object.values(obj)[4]);
-        document.querySelector('.show').innerHTML=res
-        console.log(res);
-}
+        let result = songs.filter(function(e){return e.song.match(sname)})
+        console.log(result);
+        var tablelements = document.querySelector(".songtable")
+            tablelements.style.display = "block"
+            tablelements.innerHTML=""
+        for(var i=0;i<result.length;i++){
+            tablelements.innerHTML+=
+            `<tr><td>${songs[i].song}</td>
+            <td><img src = "${songs[i].album}"</td>
+            <td>${songs[i].artist}</td>
+            <td>${songs[i].year}</td></tr>`
+        }
+    }
 
     
     document.getElementById('ssong').addEventListener('click', searchSong);
@@ -87,11 +139,8 @@ document.querySelector(".count").innerHTML= Object.keys(songs).length;
     function searchArtist(){ 
           // songs.forEach(entry => {
             var artname = document.getElementById("searchartist").value
-            let result = Object.values(songs).filter(function(e){return e.artist == artname})
-            document.querySelector('.show').style.display="block"
-            var res = result.map((obj) => "\n" +"<b>song:</b>"+ Object.values(obj)[1] +"("+ Object.values(obj)[2]+")"+"\n<b>artist:</b>"+Object.values(obj)[3] +"\n<b>year:</b>"+Object.values(obj)[4]);
-            document.querySelector('.show').innerHTML=res
-            console.log(res);
+            let result = songs.filter(function(e){return e.artist == artname})
+            displayValuesParam(result)
        // })
     }
     document.getElementById('sartist').addEventListener('click', searchArtist);
@@ -101,11 +150,9 @@ document.querySelector(".count").innerHTML= Object.keys(songs).length;
     function searchYear(){ 
         // songs.forEach(entry => {
           var year = document.getElementById("searchyear").value
-          let result = Object.values(songs).filter(function(e){return e.year == year})
-          document.querySelector('.show').style.display="block"
-          var res = result.map((obj) => "\n" +"<b>song:</b>"+ Object.values(obj)[1] +"("+ Object.values(obj)[2]+")"+"\n<b>artist:</b>"+Object.values(obj)[3] +"\n<b>year:</b>"+Object.values(obj)[4]);
-          document.querySelector('.show').innerHTML=res
-          console.log(res);
+          let result = songs.filter(function(e){return e.year == year})
+          displayValuesParam(result)
+          
      // })
   }
   document.getElementById('syear').addEventListener('click', searchYear)

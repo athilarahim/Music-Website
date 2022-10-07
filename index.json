@@ -1,24 +1,24 @@
 [{"id":367364873987,
  "song": "Abcdefg",
- "album": "Nursery rhymes",
+ "album": "https://i.scdn.co/image/ab67616d00001e0297e971f3e53475091dc8d707",
  "artist": "Mr. abcd",
  "year": 1996},
  {
  "id":367364687887,
  "song": "Every night",
- "album": "Titanic",
+ "album": "https://upload.wikimedia.org/wikipedia/en/c/c3/Justin_Bieber_-_Yummy.png",
  "artist": "Mr. defg",
  "year": 1991},
  {
     "id":3673637983987,
     "song": "Holy night",
-    "album": "Night dreams",
+    "album": "https://i.scdn.co/image/ab67616d00001e02ba5db46f4b838ef6027e6f96",
     "artist": "Mr. yefg",
     "year": 1993},
     {
         "id":367369834987,
         "song": "Hellohellohello",
-        "album": "Hihello",
+        "album": "https://upload.wikimedia.org/wikipedia/en/c/c3/Justin_Bieber_-_Yummy.png",
         "artist": "Mr. defg",
         "year": 2000}
  

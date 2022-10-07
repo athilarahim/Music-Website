@@ -206,20 +206,22 @@ body {
 }
 
 
-.show{
-	height:80px;
-	width: 55%;
-	background-color: rgb(55, 106, 132);
+.songtable{
+	width: 100%;
+	background-color: rgb(234, 243, 247);
 	padding: 10px;
-	border-radius: 25px;
 	justify-content: center;
 	align-items: center;
 	margin-left: 0.5rem;
-	color: white;
 	display: none;
-    overflow-y: scroll;
+	border:rgb(45, 75, 76);
+
 }
 
+th,td{
+	width: 10rem;
+    text-align: center;
+}
 .search{
 	display: flex;
 	flex-direction: row;
